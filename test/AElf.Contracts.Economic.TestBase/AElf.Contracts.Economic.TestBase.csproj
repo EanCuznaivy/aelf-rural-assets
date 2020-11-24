@@ -62,6 +62,11 @@
             <OutputItemType>Contract</OutputItemType>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </ProjectReference>
+        <ProjectReference Include="..\..\contract\AElf.Contracts.Assets\AElf.Contracts.Assets.csproj">
+            <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+            <OutputItemType>Contract</OutputItemType>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </ProjectReference>
         <ProjectReference Include="..\..\src\AElf.ContractTestKit\AElf.ContractTestKit.csproj" />
         <ProjectReference Include="..\..\src\AElf.Kernel.SmartContract.ExecutionPluginForMethodFee\AElf.Kernel.SmartContract.ExecutionPluginForMethodFee.csproj" />
         <ProjectReference Include="..\..\src\AElf.Kernel.SmartContract.ExecutionPluginForResourceFee\AElf.Kernel.SmartContract.ExecutionPluginForResourceFee.csproj" />
@@ -169,6 +174,9 @@
         </ContractStub>
         <ContractStub Include="..\..\protobuf\parliament_contract_impl.proto">
             <Link>Protobuf\Proto\parliament_contract_impl.proto</Link>
+        </ContractStub>
+        <ContractStub Include="..\..\protobuf\assets_contract.proto">
+            <Link>Protobuf\Proto\assets_contract.proto</Link>
         </ContractStub>
     </ItemGroup>
 
