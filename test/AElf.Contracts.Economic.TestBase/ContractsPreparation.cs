@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AElf.Contracts.Assets;
 using AElf.Standards.ACS3;
 using AElf.Contracts.Configuration;
 using AElf.Contracts.Consensus.AEDPoS;
@@ -102,6 +103,10 @@ namespace AElf.Contracts.Economic.TestBase
         private Address _configurationAddress;
         protected Address ConfigurationAddress =>
             GetOrDeployContract(Contracts.Configuration, ref _configurationAddress);
+        
+        private Address _assetsAddress;
+        protected Address AssetsContractAddress =>
+            GetOrDeployContract(Contracts.Assets, ref _assetsAddress);
 
         #endregion
 
@@ -144,6 +149,8 @@ namespace AElf.Contracts.Economic.TestBase
 
         internal ConfigurationContainer.ConfigurationStub ConfigurationStub =>
             GetConfigurationContractTester(BootMinerKeyPair);
+        
+        internal AssetsContractContainer.AssetsContractStub AssetsStub => GetAssetsContractTester(BootMinerKeyPair);
         #endregion
 
         #region Get Contract Stub Tester
@@ -221,6 +228,11 @@ namespace AElf.Contracts.Economic.TestBase
         internal ConfigurationContainer.ConfigurationStub GetConfigurationContractTester(ECKeyPair keyPair)
         {
             return GetTester<ConfigurationContainer.ConfigurationStub>(ConfigurationAddress, keyPair);
+        }
+        
+        internal AssetsContractContainer.AssetsContractStub GetAssetsContractTester(ECKeyPair keyPair)
+        {
+            return GetTester<AssetsContractContainer.AssetsContractStub>(AssetsContractAddress, keyPair);
         }
 
         #endregion
@@ -307,6 +319,7 @@ namespace AElf.Contracts.Economic.TestBase
             _ = TokenContractAddress;
             _ = TokenHolderContractAddress;
             _ = AssociationContractAddress;
+            _ = AssetsContractAddress;
         }
 
         #endregion
@@ -513,6 +526,11 @@ namespace AElf.Contracts.Economic.TestBase
                 });
                 approveResult.TransactionResult.Status.ShouldBe(TransactionResultStatus.Mined);
             }
+        }
+
+        protected async Task InitializeAssetsContract()
+        {
+            await AssetsStub.Initialize.SendAsync(new Empty());
         }
 
         protected async Task InitializeTokenConverter()

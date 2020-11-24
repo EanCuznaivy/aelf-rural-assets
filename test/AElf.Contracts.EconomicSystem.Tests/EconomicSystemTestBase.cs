@@ -1,3 +1,4 @@
+using AElf.Contracts.Assets;
 using AElf.Contracts.Configuration;
 using AElf.Contracts.Consensus.AEDPoS;
 using AElf.Contracts.Economic;
@@ -34,6 +35,7 @@ namespace AElf.Contracts.EconomicSystem.Tests
             AsyncHelper.RunSync(InitializeAElfConsensus);
             AsyncHelper.RunSync(InitializeTokenConverter);
             AsyncHelper.RunSync(InitializeTransactionFeeChargingContract);
+            AsyncHelper.RunSync(InitializeAssetsContract);
         }
         
         internal BasicContractZeroImplContainer.BasicContractZeroImplStub BasicContractZeroStub =>
@@ -81,6 +83,9 @@ namespace AElf.Contracts.EconomicSystem.Tests
 
         internal ConfigurationImplContainer.ConfigurationImplStub ConfigurationContractStub =>
             GetConfigurationContractTester(BootMinerKeyPair);
+
+        internal AssetsContractContainer.AssetsContractStub AssetsContractStub =>
+            GetAssetsContractTester(BootMinerKeyPair);
 
         internal BasicContractZeroImplContainer.BasicContractZeroImplStub GetBasicContractTester(ECKeyPair keyPair)
         {
@@ -172,5 +177,9 @@ namespace AElf.Contracts.EconomicSystem.Tests
             return GetTester<ConfigurationImplContainer.ConfigurationImplStub>(ConfigurationAddress, keyPair);
         }
 
+        internal AssetsContractContainer.AssetsContractStub GetAssetsContractTester(ECKeyPair keyPair)
+        {
+            return GetTester<AssetsContractContainer.AssetsContractStub>(AssetsContractAddress, keyPair);
+        }
     }
 }

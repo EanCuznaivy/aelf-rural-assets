@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package Assets;
+
+import "aelf/core.proto";
+import "aelf/options.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/timestamp.proto";
+
+option csharp_namespace = "AElf.Contracts.Assets";
+
+service AssetsContract {
+    option (aelf.csharp_state) = "AElf.Contracts.Assets.AssetsContractState";
+    rpc Initialize (google.protobuf.Empty) returns (google.protobuf.Empty) {
+    }
+    rpc SetAssetInfo (AssetInfo) returns (google.protobuf.Empty) {
+    }
+    rpc SetAsset (Asset) returns (google.protobuf.Empty) {
+    }
+
+    rpc GetAssetInfo (GetAssetInfoInput) returns (AssetInfo) {
+        option (aelf.is_view) = true;
+    }
+    rpc GetAssetInfoWithDetails (GetAssetInfoInput) returns (AssetInfo) {
+        option (aelf.is_view) = true;
+    }
+}
+
+message AssetInfo {
+    string name = 1;
+    string id_card = 2;
+    int32 asset_type = 3;
+    repeated int32 asset_id_list = 4;
+    repeated Asset asset_list = 5;
+}
+
+message Asset {
+    int32 asset_id = 1;
+    string status = 2;
+    string bank_id = 3;
+    int64 loan_amount = 4;
+    google.protobuf.Timestamp due_date = 5;
+    int64 loan_rate = 6;
+    bytes loan_agreement = 7;
+    string id_card = 8;
+}
+
+message GetAssetInfoInput {
+    string id_card = 1;
+    int32 asset_type = 2;
+}

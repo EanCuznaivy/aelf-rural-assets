@@ -50,6 +50,9 @@
         <ContractStub Include="..\..\protobuf\economic_contract.proto">
             <Link>Protobuf\Proto\economic_contract.proto</Link>
         </ContractStub>
+        <ContractStub Include="..\..\protobuf\assets_contract.proto">
+            <Link>Protobuf\Proto\assets_contract.proto</Link>
+        </ContractStub>
     </ItemGroup>
 
 </Project>

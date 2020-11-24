@@ -31,6 +31,7 @@ namespace AElf.Blockchains.MainChain
                 TokenConverterSmartContractAddressNameProvider.Name,
                 TokenHolderSmartContractAddressNameProvider.Name,
                 EconomicSmartContractAddressNameProvider.Name,
+                AssetsSmartContractAddressNameProvider.Name
             };
         }
     }
