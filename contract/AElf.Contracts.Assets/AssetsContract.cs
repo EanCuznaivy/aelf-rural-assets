@@ -15,7 +15,7 @@ namespace AElf.Contracts.Assets
                 var address = Address.FromPublicKey(ByteArrayHelper.HexStringToByteArray(miner.ToHex()));
                 State.PermissionMap[address] = true;
             }
-            
+
             Context.LogDebug(() => "Assets contract initialized.");
 
             return new Empty();
@@ -81,6 +81,25 @@ namespace AElf.Contracts.Assets
             }
 
             return info;
+        }
+
+        public override Empty RecordJsonMessage(JsonMessage input)
+        {
+            // Permission check.
+            Assert(State.PermissionMap[Context.Sender], "No permission.");
+
+            Assert(!string.IsNullOrEmpty(input.Key) && !string.IsNullOrEmpty(input.Message),
+                $"Incorrect json message: {input}");
+
+            State.JsonMessageMap[input.Key] = input.Message;
+
+            return new Empty();
+        }
+
+        public override StringValue GetJsonMessage(StringValue input)
+        {
+            var message = State.JsonMessageMap[input.Value] ?? string.Empty;
+            return new StringValue {Value = message};
         }
     }
 }

@@ -18,11 +18,17 @@ service AssetsContract {
     }
     rpc SetAsset (Asset) returns (google.protobuf.Empty) {
     }
+    
+    rpc RecordJsonMessage (JsonMessage) returns (google.protobuf.Empty) {
+    }
 
     rpc GetAssetInfo (GetAssetInfoInput) returns (AssetInfo) {
         option (aelf.is_view) = true;
     }
     rpc GetAssetInfoWithDetails (GetAssetInfoInput) returns (AssetInfo) {
+        option (aelf.is_view) = true;
+    }
+    rpc GetJsonMessage (google.protobuf.StringValue) returns (google.protobuf.StringValue) {
         option (aelf.is_view) = true;
     }
 }
@@ -40,10 +46,15 @@ message Asset {
     string status = 2;
     string bank_id = 3;
     int64 loan_amount = 4;
-    google.protobuf.Timestamp due_date = 5;
+    string due_date = 5;
     int64 loan_rate = 6;
-    bytes loan_agreement = 7;
+    string loan_agreement = 7;
     string id_card = 8;
+}
+
+message JsonMessage {
+    string key = 1;
+    string message = 2;
 }
 
 message GetAssetInfoInput {

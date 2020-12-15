@@ -16,5 +16,7 @@ namespace AElf.Contracts.Assets
         public MappedState<int, Asset> AssetMap { get; set; }
 
         public MappedState<Address, bool> PermissionMap { get; set; }
+
+        public MappedState<string, string> JsonMessageMap { get; set; }
     }
 }
