@@ -46,18 +46,6 @@ namespace AElf.Contracts.Assets
             return new Empty();
         }
 
-        public override Empty SetAsset(Asset input)
-        {
-            // Permission check.
-            Assert(State.PermissionMap[Context.Sender], "No permission.");
-
-            Assert(input.AssetId != 0 && !string.IsNullOrEmpty(input.Status), $"Incorrect asset detail: {input}");
-
-            State.AssetMap[input.AssetId] = input;
-
-            return new Empty();
-        }
-
         public override AssetInfo GetAssetInfo(GetAssetInfoInput input)
         {
             return State.AssetInfoMap[input.IdCard][input.AssetType] ?? new AssetInfo();
